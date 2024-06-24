@@ -9,6 +9,44 @@ struct ListNode
     ListNode(int x) : val(x), next(NULL) {}
 };
 
+void insertATthehead(ListNode *&head, int val)
+{
+    ListNode *n = new ListNode(val);
+    if (head == NULL)
+    {
+        n->next = n;
+        head = n;
+        return;
+    }
+    ListNode *temp = head;
+    while (temp->next != NULL)
+    {
+        temp = temp->next;
+    }
+    temp->next = n;
+    n->next = head;
+    head = n;
+}
+
+void insertATtail(ListNode *&head, int val)
+{
+
+    if (head == NULL)
+    {
+        insertATthehead(head, val);
+        return;
+    }
+    ListNode *n = head;
+    ListNode *temp = head;
+
+    while (temp->next != NULL)
+    {
+        temp = temp->next;
+    }
+    temp->next = n;
+    n->next = head;
+}
+
 ListNode *getIntersectionNode(ListNode *headA, ListNode *headB)
 {
     ListNode *s1 = headA;
@@ -31,6 +69,23 @@ ListNode *getIntersectionNode(ListNode *headA, ListNode *headB)
             s2 = headA;
     }
     return s1;
+}
+
+ListNode *getIntersectionNode(ListNode *headA, ListNode *headB)
+{
+    unordered_map<string, int> m;
+    while (headA != 0)
+    {
+        m[headA]++;
+    }
+
+    while (headB != 0)
+    {
+        if (m[headB] > 0)
+            return headB;
+    }
+
+    return NULL;
 }
 
 int main()
